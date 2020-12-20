@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <title>Каталог продуктов</title>
+</head>
+<body ng-app="ProductCatalogApp">
+
+<div class="container" ng-controller="ProductCatalogController">
+    <div class="input-group mb-3 mt-3">
+        <input ng-model="name" type="text" class="form-control" placeholder="Название нового продукта"
+               aria-label="Название нового продукта"
+               aria-describedby="basic-addon2">
+        <input ng-model="description" type="text" class="form-control" placeholder="Описание нового продукта"
+               aria-label="Описание нового продукта"
+               aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button ng-click="create(name, description)" class="btn btn-primary" type="submit">Добавить</button>
+        </div>
+    </div>
+    <div class="input-group mb-3 mt-3">
+        <input class="form-control" size="10" type="text" ng-model="searchedProduct" placeholder="Поиск">
+        <button type="submit" ng-click="search(searchedProduct)" class="btn btn-primary">Поиск</button>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in productItemList " ng-include="getTemplate(item)">
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<script type="text/ng-template" id="display">
+    <th scope="row">{{item.id}}</th>
+    <td>{{item.name}}</td>
+    <td>{{item.description}}</td>
+    <td>
+        <button class="btn btn-primary" ng-click="showEdit(item)">Обновить</button>
+        <button class="btn btn-danger" ng-click="delete(item)">Удалить</button>
+    </td>
+</script>
+<script type="text/ng-template" id="edit">
+    <th scope="row">{{item.id}}</th>
+    <td><input type="text" size="5" ng-model="formData.name" class="form-control"></td>
+    <td><input type="text" size="5" ng-model="formData.description" class="form-control"></td>
+    <td>
+        <button class="btn btn-success" ng-click="update(item, formData)">Сохранить</button>
+        <button class="btn btn-danger" ng-click="reset()">Отмена</button>
+    </td>
+</script>
+
+<script src="js/app.js"></script>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
